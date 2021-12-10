@@ -54,9 +54,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val linearLayoutManager = mBinding.rvList.layoutManager as LinearLayoutManager
                 if (mBinding.pbLoading.visibility == View.GONE) {
                     if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == mViewModel.mDataList.size - 1) {
-                        val keyWord = mBinding.etSearch.text.toString()
-                        if (TextUtils.isEmpty(keyWord)) mViewModel.searchUsers(null)
-                        else mViewModel.searchMoreData(keyWord)
+                        mViewModel.searchMoreData(mBinding.etSearch.text.toString())
                     }
                 }
             }
@@ -66,10 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnSearch -> {
-                val keyWord = mBinding.etSearch.text.toString()
-                if (TextUtils.isEmpty(keyWord)) mViewModel.searchUsers(null)
-                else mViewModel.searchUsers(keyWord)
-
+                mViewModel.searchUsers(mBinding.etSearch.text.toString())
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(mBinding.btnSearch.windowToken, 0)
             }
