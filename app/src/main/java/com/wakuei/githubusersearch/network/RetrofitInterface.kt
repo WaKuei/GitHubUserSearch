@@ -15,7 +15,7 @@ interface RetrofitInterface {
         @Query("q") q: String?,
         @Query("page") page: Int,
         @Query("per_page") per_page: Int
-    ): Call<UserResponse>
+    ): Call<SearchUserResponse>
 
 
     companion object {
