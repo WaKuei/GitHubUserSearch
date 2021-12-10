@@ -7,20 +7,18 @@ import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wakuei.githubusersearch.R
 import com.wakuei.githubusersearch.databinding.ActivityMainBinding
-import com.wakuei.githubusersearch.repository.UserRepository
 import com.wakuei.githubusersearch.viewmodel.UserViewModel
-import com.wakuei.githubusersearch.viewmodel.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mViewModel: UserViewModel
     private var mAdapter: UserAdapter? = null
+    private val mViewModel by viewModel<UserViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +34,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mBinding.rvList.adapter = mAdapter
         mBinding.rvList.layoutManager = LinearLayoutManager(this)
         mBinding.rvList.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-
-        val userRepo = UserRepository()
-        val viewModelFactory = ViewModelFactory {
-            UserViewModel(userRepo)
-        }
-
-        mViewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
-
 
         mViewModel.mList.observe(this, {
             mAdapter?.submitList(it)
