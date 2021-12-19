@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = mBinding.rvList.layoutManager as LinearLayoutManager
                 if (mBinding.pbLoading.visibility == View.GONE) {
-                    if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == mViewModel.mDataList.size - 1) {
+                    if (mAdapter!=null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mAdapter!!.itemCount - 1) {
                         mViewModel.searchMoreData(mBinding.etSearch.text.toString())
                     }
                 }

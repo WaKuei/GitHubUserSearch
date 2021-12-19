@@ -14,7 +14,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private var mHasMore = true
     private var mPage = 1
     private val mUserRepositoryCallback = OnUserRepositoryCallback()
-    var mDataList = ArrayList<UserModel>()
+    private var mDataList = ArrayList<UserModel>()
 
     fun searchUsers(keyword: String?) {
         Timber.d("search user with keyword:$keyword")
